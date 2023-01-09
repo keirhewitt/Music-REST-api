@@ -3,15 +3,17 @@
 
 ### URI's
 
-- POST
-[swordfishtrombone/api/v1/lp/add]
-*Adds LP using the request body payload*
+> POST
 
-- GET
-[swordfishtrombone/api/v1/lp]
-*Gets all LPs*
+`swordfishtrombone/api/v1/lp/add`
+**Add LP using the request body payload**
 
-[swordfishtrombone/api/v1/music/lp/:artist/:title]
-*Returns an LP matching given artist and title*
+> GET
+
+`swordfishtrombone/api/v1/lp`
+**Get all LPs**
+
+`swordfishtrombone/api/v1/music/lp/:artist/:title`
+**Return an LP matching given artist and title**
 
 
