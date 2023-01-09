@@ -3,11 +3,15 @@
 
 ### URI's
 
+- POST
+[swordfishtrombone/api/v1/lp/add]
+*Adds LP using the request body payload*
 
-[swordfishtrombone/api/v1/random]
-*Returns a random LP/EP/Single/Song*
+- GET
+[swordfishtrombone/api/v1/lp]
+*Gets all LPs*
 
-[swordfishtrombone/api/v1/{genre}/random]
-*Returns a random LP/EP/Single/Song from specified group*
+[swordfishtrombone/api/v1/music/lp/:artist/:title]
+*Returns an LP matching given artist and title*
 
 

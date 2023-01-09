@@ -19,7 +19,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true  }))
 
 /* Routes for adding LPs */
-app.use('/api/v1/music/lp', lp_routes);
+app.use('swordfishtrombone/api/v1/music/lp', lp_routes);
 
 /* Connect to DB and start server */
 mongoose.connect(process.env.MONGO_URI)
