@@ -5,7 +5,7 @@ import {
     getLP,
     likeLP
 } from "../../controllers/music/lp.js";
-import { isAuthenticated } from "../../controllers/music/auth.js";
+import { isAuthenticated } from "../../middleware/authentication.js";
 
 const router = express.Router();
 
