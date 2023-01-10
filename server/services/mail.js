@@ -1,22 +1,24 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: "../.env"});
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
+    port: 465,
+    secure: true,
     auth: {
-        user: 'user',   // TODO: replace this
-        password: 'password'    // TODO: replace this
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASS
     }
 });
 
 /* Send API Key to user */
-const sendAPIKey = (key, address) => {
+export const sendAPIKey = (key, receiver) => {
     let config = {
         from: process.env.GMAIL_USER,
-        to: address,
-        subject: 'Your Swordfishtrombones API key',
+        to: receiver,
+        subject: 'Swordfishtrombones - API key',
         html: `<h1>Keep this hidden</h1><br><p>${key}</p>`
     }
 
