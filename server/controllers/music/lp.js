@@ -32,10 +32,11 @@ export const getAllLPs = async (req, res) => {
 export const getLP = async (req, res) => {
     try {
         const { artist, title } = req.params;
-        const lpToFind = await LP.findOne().select({
+        const lpToFind = await LP.findOne({
             artist: artist,
             title: title
         });
+        if (!lpToFind) return res.status(404).json({ error: "LP does not exist." });
         res.status(200).json(lpToFind);
     } catch (err) {
         res.status(404).json({ message: "LP does not exist." });
