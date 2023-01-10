@@ -24,7 +24,7 @@ export const getAllLPs = async (req, res) => {
         const lp = await LP.find();
         res.status(200).json(lp);
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: "No LPs exist!" });
     }
 }
 
@@ -38,7 +38,7 @@ export const getLP = async (req, res) => {
         });
         res.status(200).json(lpToFind);
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: "LP does not exist." });
     }
 }
 
@@ -55,6 +55,6 @@ export const likeLP = async (req, res) => {
         );
         res.status(200).json(updateLP);
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: "Cannot find LP." });
     }
 }
