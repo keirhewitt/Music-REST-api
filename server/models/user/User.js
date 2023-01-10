@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema(
         email: {
             type: String,
             required: true,
+            unique: true,
             max: 50
         },
         password: {
@@ -15,6 +16,7 @@ const UserSchema = new mongoose.Schema(
         },
         apikey: {
             type: String,
+            unique: true,
             min: 16,
             max: 16
         }
