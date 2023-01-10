@@ -8,11 +8,6 @@ import bodyParser from "body-parser";
 import lp_routes from "./routes/music/lpRoutes.js";
 import user_routes from "./routes/user/userRoutes.js";
 
-/** Grab test data */
-/** ! TEMPORARY ! */
-//import { createUser } from "./controllers/user/users.js";
-//import admin from "../test/testdata.js";
-
 dotenv.config({ path: "../.env"});
 
 const app = express();
@@ -22,13 +17,13 @@ const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true  }))
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 /* Routes for LP data requests */
-app.use('/api/v1/music/lp', lp_routes);
+app.use('/swordfishtrombone/api/v1/music/lp', lp_routes);
 
 /* Routes for user data requests */
-app.use('/api/v1/user', user_routes);
+app.use('/swordfishtrombone/api/v1/user', user_routes);
 
 /* Connect to DB and start server */
 mongoose.connect(process.env.MONGO_URI)
