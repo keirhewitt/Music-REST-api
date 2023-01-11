@@ -35,9 +35,11 @@ export const getLP = async (req, res) => {
         const lpToFind = await LP.findOne({
             artist: artist,
             title: title
-        });
+        }).exec();
+            
         if (!lpToFind) return res.status(404).json({ error: "LP does not exist." });
         res.status(200).json(lpToFind);
+        
     } catch (err) {
         res.status(404).json({ message: "LP does not exist." });
     }
@@ -57,5 +59,42 @@ export const likeLP = async (req, res) => {
         res.status(200).json(updateLP);
     } catch (err) {
         res.status(404).json({ message: "Cannot find LP." });
+    }
+}
+
+/* UPDATEs LP details by id */
+export const updateLP = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { artist, title, releaseDate } = req.body;
+
+        const updatedDetails = {
+            artist: artist,
+            title: title,
+            releaseDate: releaseDate
+        };
+
+        const lp = await LP.findById(id);
+        if (!lp) return res.status(404).json({ error: "Could not find LP." });
+
+        await LP.updateOne({_id: id}, updatedDetails);
+        await lp.save();
+
+        res.status(200).json({ message: "LP updated." });
+    } catch(err) {
+        res.status(404).json({ error: "Could not find LP." });
+    }
+}
+
+/* DELETE */
+export const deleteLP = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const lp = await LP.findById(id);
+        if (!lp) return res.status(400).json({ error: "Could not find LP." });
+        const del = await LP.deleteOne({ _id: id });
+        res.status(200).json(del); // Return object { n, ok, deletedCount } (Should all be == 1)
+    } catch (err) {
+        res.status(404).json({ error: err.message });
     }
 }
