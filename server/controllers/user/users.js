@@ -4,12 +4,23 @@ import jwt from "jsonwebtoken";
 import generateApiKey from "generate-api-key";
 import User from "../../models/user/User.js";
 import { sendAPIKey } from "../../services/mail.js";
-import { brotliCompress } from "zlib";
+import { isValidEmail } from "./authentication.js";
 
 /* CREATE User */
 export const createUser = async (req, res) => {
     try {
         const { email, password } = req.body;
+        const {valid, reason, validators} = await isValidEmail(email);  // Validate email address
+
+        if (!valid) {
+            return res.status(400).json({
+                message: "Email address invalid.",
+                reason: validators[reason].reason
+            });
+        }
+        
+        if (User.findOne({ email: email})) return res.status(303).json({ error: "Email already registered in database." });
+
         const salt = await bcrypt.genSalt();
         const hashedPass = await bcrypt.hash(password, salt);
 
@@ -19,11 +30,10 @@ export const createUser = async (req, res) => {
             apikey: generateApiKey.generateApiKey({ length: 16 })
         });
 
-        const addUser = await newuser.save();
+        await newuser.save();
 
         /* Send user API key */
         sendAPIKey(newuser.apikey, newuser.email);
-
         res.status(201).json({ msg: "Your API Key is being sent to your email." });
     } catch (err) {
         res.status(500).json({ error: err.message });
