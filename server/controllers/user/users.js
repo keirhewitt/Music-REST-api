@@ -59,7 +59,7 @@ export const updateUser = async (req, res) => {
         const duplicate = await User.find({ email: newemail });  // Make sure new email is not already used by someone else
         if (duplicate) return res.status(400).json({ error: "This email is already in use." });
         
-        await User.updateOne(filter, updatedDetails);   // Update User (filter) with new details
+        await User.updateOne({_id: id}, updatedDetails);   // Update User (filter) with new details
         await user.save();
 
         res.status(200).json({ message: "User details updated." });
