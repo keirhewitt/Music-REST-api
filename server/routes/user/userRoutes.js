@@ -4,8 +4,8 @@ import { isAuthenticated } from "../../middleware/authentication.js";
 
 const router = express.Router();
 
-/* Create user does NOT require authentication (for obvious reasons) */
-router.post('/create', createUser);
+/* Create user (Authentication required) */
+router.post('/create', isAuthenticated, createUser);
 
 /* Delete a User (Authentication required) */
 router.delete('/delete/:userId', isAuthenticated, deleteUser);
