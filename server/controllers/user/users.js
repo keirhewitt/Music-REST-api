@@ -81,12 +81,12 @@ export const updateUser = async (req, res) => {
 /* DELETE User */
 export const deleteUser = async (req, res) => {
     try {
-        const { id } = req.params;
-        const user = User.findById(id);
+        const { userId } = req.params;
+        const user = User.findById(userId);
         if (!user) return res.status(404).json({ error: "Cannot find user with id." })
-        await User.deleteOne({ _id: id });
+        await User.findOneAndRemove({ _id: userId });
         res.status(200).json({ message: "User deleted." });
     } catch (err) {
-        res.status(404).json({ error: err.message });
+        res.status(404).json({ error: "Invalid request." });
     }
 }
