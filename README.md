@@ -1,19 +1,15 @@
-# RESTful API - Swordfishtrombone
+# RESTful API - Swordfishtrombones
+A simple REST API for manipulating music and user records, built using:
+ - **M**ongoDB
+ - **E**xpress JS
+ - **R**eact
+ - **N**ode JS
+
+Base URL:
+$$
+\  swordfishtrombone/api/v1 
+$$
+___
+*Locally hosted at the moment, project is not yet live.*
+
 ---
-
-### URI's
-
-> POST
-
-`swordfishtrombone/api/v1/lp/add`
-**Add LP using the request body payload**
-
-> GET
-
-`swordfishtrombone/api/v1/lp`
-**Get all LPs**
-
-`swordfishtrombone/api/v1/music/lp/:artist/:title`
-**Return an LP matching given artist and title**
-
-
