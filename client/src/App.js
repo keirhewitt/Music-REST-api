@@ -7,7 +7,13 @@ import Navbar from "pages/nav";
 function App() {
   return (
     <div className="App">
-      
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
