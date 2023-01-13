@@ -10,10 +10,10 @@ export const post = async (url, data) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data);
+        body: JSON.stringify(data)
     }
 
-    const res = await fetch(url, data);
+    const res = await fetch(url, payload);
     const _json = res.json();
     return _json;
 }
