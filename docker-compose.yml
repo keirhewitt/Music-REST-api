@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+
+  server:
+    build: server/
+    command: nodemon server.js
+    ports:
+      - 8000:8000
+
+  client:
+    build: client/
+    command: npm run start
+    network_mode: host
+    depends_on:
+      - server
