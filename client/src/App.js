@@ -13,10 +13,13 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/swordfishtrombone/api/v1/music/lp")
+    fetch("/swordfishtrombone/api/v1/music/lp")
     .then((response) => response.json())
     .then((response) => {
       setRes(response);
+      setArtist(response.artist);
+      setTitle(response.title);
+      setRelease(response.releaseDate);
       setError(null);
     })
     .catch(setError);
