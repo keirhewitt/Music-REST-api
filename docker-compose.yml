@@ -3,14 +3,23 @@ version: "3"
 services:
 
   server:
-    build: server/
-    command: nodemon server.js
+    build: ./server
     ports:
       - 8000:8000
+    environment:
+      DB_URL: mongodb+srv://khewitt:H2N1FbMw7mP41ERe@campbell-cluster.zto26tx.mongodb.net/?retryWrites=true&w=majority
 
   client:
-    build: client/
-    command: npm run start
-    network_mode: host
-    depends_on:
-      - server
+    build: ./client
+    ports:
+      - 3000:3000
+    
+  database:
+    image: mongo:4.0-xenial
+    ports:
+      - 27017:27017
+    volumes:
+      - music-api:/data/db
+
+volumes:
+  music-api: 
