@@ -1,8 +1,11 @@
 FROM node:16
 
+WORKDIR /app
+
 COPY package*.json ./
 RUN npm install
+COPY . .
 
-ADD src/App.js /client/src/
+EXPOSE 3000
 
-WORKDIR /client/
+CMD ["npm", "start"]
