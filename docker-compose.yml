@@ -7,7 +7,7 @@ services:
     ports:
       - 8000:8000
     environment:
-      DB_URL: mongodb+srv://khewitt:H2N1FbMw7mP41ERe@campbell-cluster.zto26tx.mongodb.net/?retryWrites=true&w=majority
+      DB_URL: mongodb+srv://khewitt:${MONGO_PASS}@campbell-cluster.zto26tx.mongodb.net/?retryWrites=true&w=majority
 
   client:
     build: ./client
