@@ -15,7 +15,11 @@ const PORT = process.env.PORT || 8000;
 
 /* Set up middleware */
 app.use(express.json());
-app.use(cors());
+app.use(cors({ 
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    credentials: true,
+    origin: "http://localhost:3000"
+}));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
