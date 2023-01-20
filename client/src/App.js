@@ -11,23 +11,39 @@ function App() {
   const [release, setRelease] = useState('');
   const [res, setRes] = useState({});
   const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const FetchAPI = ({ controller }) => {
+    axios.get("http://localhost:8000/swordfishtrombone/api/v1/music/lp", {
+      headers: {
+        "apiKey" : "RqRdvUEo9FgNjI5o"
+      },
+      credentials: 'include',
+      signal: controller.signal
+    })
+    .then((result) => {
+      setRes(result.data);
+    })
+    .catch((error) => {;
+      setError(error);
+    })
+    .finally(() => {
+      setIsLoaded(true);
+    });
+  }
 
   useEffect(() => {
-    fetch("/swordfishtrombone/api/v1/music/lp")
-    .then((response) => response.json())
-    .then((response) => {
-      setRes(response);
-      setArtist(response.artist);
-      setTitle(response.title);
-      setRelease(response.releaseDate);
-      setError(null);
-    })
-    .catch(setError);
+    const controller = new AbortController();
+
+    FetchAPI({ controller });
+
+    return () => controller.abort(); 
   }, []);
 
-  if (error) return <p>An error occurred</p>
+  if (error) return <p>{error.message}</p>
 
   return (
+    res.Length > 0 ?
     <div className="App">
       {res.map(({artist, title, releaseDate}) => {
         <LP 
@@ -37,6 +53,8 @@ function App() {
         />
       })}
     </div>
+    :
+    <p>No data returned from server.</p>
   )
 }
 
