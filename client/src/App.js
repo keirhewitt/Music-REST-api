@@ -1,61 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Button, Alert } from 'react-bootstrap'
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Navbar } from './components';
 
-import LP from 'components/LP';
+import AllLPs from './pages/LP/ListLP';
+import UpdatesLP from 'pages/LP/UpdatingLP';
+import CreatesLP from 'pages/LP/CreatingLP';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-    
-  const [res, setRes] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+    return (
+        <Router>
+            <Navbar />
+            <Routes>
+                <Route path="/music/lp" element={<AllLPs />} />
+                <Route
+                    path="/music/lp/update/:id"
+                    element={<UpdatesLP />}
+                />
+                <Route path="/music/lp/create" element={<CreatesLP />}/>
 
-  const FetchAPI = async () => {
-    await axios.get("/swordfishtrombone/api/v1/music/lp", {
-      withCredentials: true,
-      headers: {
-        "apiKey" : "RqRdvUEo9FgNjI5o",
-        "Content-Type": "application/json"
-      }
-    })
-    .then((result) => {
-      setRes(result.data);
-    })
-    .catch((error) => {;
-      setError(error);
-    })
-    .finally(() => {
-      setIsLoaded(true);
-    });
-  }
-
-  useEffect(() => {
-    //const controller = new AbortController();
-    FetchAPI();
-
-    //return () => controller.abort(); 
-  }, []);
-
-  if (error) return <p>{error.message}</p>
-
-  return (
-
-    isLoaded == true && res.length > 0 ?
-
-    <div className="album-container">
-      {res.map((album) => (
-        <LP 
-          artist={album.artist}
-          title={album.title}
-          releaseDate={album.releaseDate}
-        />
-      ))}
-    </div>
-
-    :
-
-    <p>Loading data from server...</p>
-  );
+            </Routes>
+        </Router>
+    )
 }
 
-export default App;
+export default App
