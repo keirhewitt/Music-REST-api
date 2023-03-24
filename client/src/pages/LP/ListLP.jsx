@@ -17,33 +17,6 @@ const Delete = styled.div`
     cursor: pointer;
 `
 
-class UpdateLP extends Component {
-    updateLP = event => {
-        event.preventDefault();
-
-        window.location.href = `/music/lp/update/${this.props.id}`;
-    }
-
-    render() {
-        return <Update onClick={this.updateLP}>Update</Update>
-    }
-}
-
-class DeleteLP extends Component {
-    deleteLP = event => {
-        event.preventDefault();
-
-        if (window.confirm('Are you sure you want to delete this LP?')) {
-            lp_urls.deleteLP(this.props.id);
-            window.location.reload();
-        }
-    }
-
-    render() {
-        return <Delete onClick={this.deleteLP}>Delete</Delete>
-    }
-}
-
 class AllLPs extends Component {
     constructor(props) {
         super(props)
