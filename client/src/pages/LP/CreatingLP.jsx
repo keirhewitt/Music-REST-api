@@ -1,13 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class CreatesLP extends Component {
-    render() {
-        return (
-            <div>
-                <p>Creating LP</p>
-            </div>
-        )
-    }
+const CreatingLP = () => {
+  return (
+    <div>CreatingLP</div>
+  )
 }
 
-export default CreatesLP;
+export default CreatingLP

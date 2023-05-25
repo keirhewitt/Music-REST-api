@@ -1,13 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class UpdatesLP extends Component {
-    render() {
-        return (
-            <div>
-                <p>Updating LPs</p>
-            </div>
-        )
-    }
+const UpdatingLP = () => {
+  return (
+    <div>UpdatingLP</div>
+  )
 }
 
-export default UpdatesLP;
+export default UpdatingLP
