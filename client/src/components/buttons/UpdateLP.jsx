@@ -1,6 +1,7 @@
 import { Component } from "react";
+import EditIcon from '@mui/icons-material/Edit';
 
-export class UpdateLP extends Component {
+export default class UpdateLP extends Component {
 
     updateLP = event => {
         event.preventDefault();
@@ -8,6 +9,8 @@ export class UpdateLP extends Component {
     }
 
     render() {
-        return <button id="update-lp-btn" onClick={() => this.updateLP}>Update</button>
+        return <button className='border-none bg-transparent' onClick={this.updateLP}>
+            <EditIcon className='fill-slate-600 hover:cursor-pointer hover:fill-blue-500' />
+        </button>
     }
 }

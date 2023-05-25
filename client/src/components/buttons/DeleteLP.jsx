@@ -1,23 +1,24 @@
 import React, { Component } from "react";
-import { lp_urls } from "./urls";
+import { LP__ROUTES } from "./urls";
 
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export class DeleteLP extends Component {
+export default class DeleteLP extends Component {
 
-    handleDelete = (id) => {
-        lp_urls.deleteLP(id);
-    };
+    handleDelete = (id) => { LP__ROUTES.deleteLP(id); };
 
     deleteLP = event => {
         event.preventDefault();
 
-        if (window.confirm('Are you sure you want to delete this LP?')) {
+        if (window.confirm(`Delete LP ${this.props.id}?`)) {
             this.handleDelete(this.props.id);
             window.location.reload();
         }
     }
 
     render() {
-        return <button id="delete-lp-btn" onClick={() => this.deleteLP}>Delete</button>
+        return <button className='border-none bg-transparent' onClick={this.deleteLP}>
+            <DeleteIcon className='fill-red-700 hover:cursor-pointer hover:fill-red-600' />
+        </button>
     }
 }
