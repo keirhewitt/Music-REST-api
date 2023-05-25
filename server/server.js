@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 
 /* Route imports */
 import lp_routes from "./routes/music/lpRoutes.js";
+import admin_routes from "./routes/admin/adminRoutes.js";
 import user_routes from "./routes/user/userRoutes.js";
 
 dotenv.config({ path: "../.env"});
@@ -26,8 +27,11 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 /* Routes for LP data requests */
 app.use('/swordfishtrombone/api/v1/music/lp', lp_routes);
 
-/* Routes for user data requests */
+/* Routes for User data requests */
 app.use('/swordfishtrombone/api/v1/user', user_routes);
+
+/* Routes for Administrator role functions */
+app.use('/swordfishtrombone/api/v1/admin', admin_routes);
 
 /* Connect to DB and start server */
 mongoose.connect(process.env.MONGO_URI)
