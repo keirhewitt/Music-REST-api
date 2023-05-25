@@ -1,32 +1,32 @@
 import axios from 'axios';
 
+/* Local base endpoint */
 const api = axios.create({
     baseURL: 'http://localhost:8000/swordfishtrombone/api/v1',
 });
 
-const p = {
-    "headers": {
-        "apiKey": "RqRdvUEo9FgNjI5o"
-    }
+/* Temp payload for testing purposes */
+const test_payload = {
+    "headers": { "apiKey": process.env.REACT_APP_PLACEHOLDER_API_KEY }
 }
 
 /* LP */
-const createLP = payload => api.post(`/music/lp/create`, p);
-const getAllLPs = payload => api.get(`/music/lp`, p);
-const updateLP = (id, payload) => api.patch(`/music/update/${id}`, p);
-const deleteLP = id => api.delete(`/music/lp/delete/${id}`);
+const createLP = payload => api.post(`/music/lp/create`, test_payload);
+const getAllLPs = payload => api.get(`/music/lp`, test_payload);
+const updateLP = (id, payload) => api.patch(`/music/update/${id}`, test_payload);
+const deleteLP = id => api.delete(`/music/lp/delete/${id}`, test_payload);
 
 /* User */
-const createUser = payload => api.post(`/user/create`, p);
+const createUser = payload => api.post(`/user/create`, test_payload);
 
-export const lp_urls = {
+export const LP__ROUTES = {
     createLP,
     getAllLPs,
     updateLP,
     deleteLP,
 };
 
-export const user_urls = {
+export const USER__ROUTES = {
     createUser
 };
 
