@@ -1,33 +1,44 @@
-import React, { Component } from 'react';
-import ReactTable from 'react-table';
-import styled from 'styled-components';
-import { lp_urls } from "../../api/api";
+import React, { Component, useState, useEffect } from 'react';
 
-/* Import Buttons */
-import { DeleteLP } from "../../components/buttons/DeleteLP";
-import { UpdateLP } from "../../components/buttons/UpdateLP";
-
+/* LPTable Component */
 import LPTable from "../../components/Table";
 
+import { LP__ROUTES } from 'api/api';
 
-class AllLPs extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isLoading: false,
-        }
-    }
+import { TailSpin } from 'react-loading-icons';
 
-    // Wait for page to load all LPs and then update state
-    componentDidMount = () => {
-        this.setState({ isLoading: true });
-    }
+const AllLPs = () => {
 
-    render() {
-        return (
-            <LPTable />
-        )
-    }
+    const [lpdata, setLPData] = useState()
+	const [payload, setPayload] = useState(null)
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		getLPData()
+	}, [])
+
+    const columns = 
+	[{ Header: 'Artist' },
+	 { Header: 'Title' },
+	 { Header: 'Release Date' },
+	 { Header: 'Actions' }]
+
+	const getLPData = async () => {
+		setLoading(true)
+		await LP__ROUTES.getAllLPs(payload).then((res) => {
+			setLPData(res.data)
+			setLoading(false)
+		})
+	}
+    return (
+        <div className='w-5/6 flex m-auto h-screen'>
+            { loading ? 
+                <TailSpin stroke="#ccc" className='m-auto h-20 w-20'/>  
+            :
+                <LPTable data={lpdata} columns={columns}/> 
+            }       
+        </div>
+    )
 }
 
 export default AllLPs;
