@@ -5,10 +5,8 @@ A simple REST API for manipulating music and user records, built using:
  - **R**eact
  - **N**ode JS
 
-Base URL:
-$$
-\  swordfishtrombone/api/v1 
-$$
+![image](https://github.com/keirhewitt/Music-REST-api/assets/57302739/c64e1839-37d3-4f44-a757-6ec5429398b5)
+
 ___
 *Locally hosted at the moment, project is not yet live.*
 
