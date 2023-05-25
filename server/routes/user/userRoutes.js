@@ -1,19 +1,20 @@
 import express from "express";
-import { createUser, readUser, updateUser, deleteUser } from "../../controllers/user/users.js";
+import { Login, Logout, Register } from "../../controllers/user/user.js";
 import { isAuthenticated } from "../../middleware/authentication.js";
 
 const router = express.Router();
 
-/* Create user (Authentication required) */
-router.post('/create', isAuthenticated, createUser);
+/* User Login (Authentication required) */
+router.post('/login/:userId', isAuthenticated, Login);
 
-/* Delete a User (Authentication required) */
-router.delete('/delete/:userId', isAuthenticated, deleteUser);
+/* User Logout (Authentication required) */
+router.post('/logout', isAuthenticated, Logout);
 
-/* Update a User (Authentication required) */
-router.patch('/update/:userId', isAuthenticated, updateUser);
+/* User Register */
+router.post('/register', Register);
 
-/* Get a User (Authentication required) */
-router.get('/:userId', isAuthenticated, readUser);
+/* Change password (Authentication required) */
+// router.patch('/user/update/:userId', isAuthenticated);
+
 
 export default router;
