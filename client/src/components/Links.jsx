@@ -24,6 +24,11 @@ class Links extends Component {
                 <Collapse>
                     <List>
                         <Item>
+                            <Link to="/" className="nav-link">
+                                Home
+                            </Link>
+                        </Item>
+                        <Item>
                             <Link to="/music/lp" className="nav-link">
                                 List LPs
                             </Link>
@@ -31,6 +36,11 @@ class Links extends Component {
                         <Item>
                             <Link to="/music/lp/create" className="nav-link">
                                 Create LP
+                            </Link>
+                        </Item>
+                        <Item>
+                            <Link to="/music/lp/random" className="nav-link">
+                                Random LP
                             </Link>
                         </Item>
                     </List>
