@@ -1,3 +1,3 @@
-import { lp_urls, user_urls } from "../../api/api";
+import { LP__ROUTES, USER__ROUTES } from "../../api/api";
 
-export { lp_urls, user_urls };
+export { LP__ROUTES, USER__ROUTES };
