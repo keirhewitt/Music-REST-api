@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { config } from 'config/config.app';
 
 /* Local base endpoint */
 const api = axios.create({
@@ -6,9 +7,7 @@ const api = axios.create({
 });
 
 /* Temp payload for testing purposes */
-const test_payload = {
-    "headers": { "apiKey": process.env.REACT_APP_PLACEHOLDER_API_KEY }
-}
+const test_payload = config.test.header;
 
 /* LP */
 const createLP = payload => api.post(`/music/lp/create`, test_payload);
