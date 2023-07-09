@@ -14,6 +14,10 @@ const Item = styled.div.attrs({
     className: 'collpase navbar-collapse',
 })``
 
+const UserLink = styled.div.attrs({
+    className: 'collapse navbar-collapse'
+})``
+
 class Links extends Component {
     render() {
         return (
@@ -41,6 +45,16 @@ class Links extends Component {
                         <Item>
                             <Link to="/music/lp/random" className="nav-link">
                                 Random LP
+                            </Link>
+                        </Item>
+                        <Item>
+                            <Link to="/user/login" className="nav-link">
+                                Login
+                            </Link>
+                        </Item>
+                        <Item>
+                            <Link to="/user/register" className="nav-link">
+                                Register
                             </Link>
                         </Item>
                     </List>
