@@ -25,7 +25,8 @@ const AllLPs = () => {
 
 	const getLPData = async () => {
 		setLoading(true)
-		await LP__ROUTES.getAllLPs(payload).then((res) => {
+		await LP__ROUTES.getAllLPs(payload)
+		.then((res) => {
 			setLPData(res.data)
 			setLoading(false)
 		})
