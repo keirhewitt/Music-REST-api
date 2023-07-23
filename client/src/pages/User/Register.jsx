@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import swal from 'sweetalert'
 
 const textBoxStyle = 
 `peer block min-h-[auto] w-full rounded border bg-transparent 
@@ -20,29 +22,72 @@ dark:text-neutral-200 dark:peer-focus:text-primary`
 
 const Register = () => {
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [errors, setErrors] = useState({})
+  const { register, handleSubmit, formState: {errors}, } = useForm()
 
-  const handleChange = (e) => {
+  const registerUser = async (creds) => {
+    return axios.post('http://localhost:8000/swordfishtrombone/api/v1/user/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(creds)
+  })
+    .then(data => data.json())
+  }
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const response = await registerUser({
+      username,
+      password
+    });
+    if ('accessToken' in response) {
+      swal("Success", response.message, "success", {
+        buttons: false,
+        timer: 2000,
+      })
+      .then((value) => {
+        localStorage.setItem('accessToken', response['accessToken']);
+        localStorage.setItem('user', JSON.stringify(response['user']));
+        window.location.reload;
+      });
+    } else {
+      swal("Failed", response.message, "error");
+    }
   }
 
   return (
     <div className='w-5/6 flex m-auto h-screen'>
-      <form className='w-[300px] h-[300px] m-auto flex flex-col justify-around p-3 bg-dark rounded-lg' action='' method='POST'>
+      <form 
+        onSubmit={handleSubmit(onSubmit)} 
+        className='w-[300px] h-[300px] m-auto flex flex-col justify-around p-3 bg-dark rounded-lg'>
         <div className='relative mb-3' data-te-input-wrapper-init>
-          <input className={textBoxStyle} type="text" id='emailInput' placeholder='Email'/>
-          <label for='emailInput' className={labelStyle}>Email</label>
+          <input
+            type='text' 
+            className={textBoxStyle} 
+            {...register("email", { required: true })}
+            aria-invalid={errors.email ? "true" : "false"}/>
+          <label 
+            for='emailInput' 
+            className={labelStyle}>Email</label>
         </div>
         <div className='relative mb-3' data-te-input-wrapper-init>
-          <input className={textBoxStyle} type='password' id='password' placeholder='Password'/>
+          <input 
+            type='password' 
+            className={textBoxStyle} 
+            {...register("password", { required: true })} 
+            id='password'/>
           <label for='password' className={labelStyle}>Password</label>
         </div>
         <div className='relative mb-3' data-te-input-wrapper-init>
-          <input className={textBoxStyle} type='password' id='confirm-password' placeholder='Re-enter assword'/>
-          <label for='confirm-password' className={labelStyle}>Confirm Password</label>
+          <input 
+            type='password' 
+            className={textBoxStyle}
+            {...register("confirmpassword", { required: true })}  
+            id='confirm-password'/>
+          <label 
+            for='confirm-password' 
+            className={labelStyle}>Confirm Password</label>
         </div>
         <input className={submitButtonStyle} type='submit' value='Register' />
       </form>
