@@ -1,15 +1,16 @@
-import dotenv from "dotenv";
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
+
+import { connect } from "./config/database.js";
 
 /* Route imports */
 import lp_routes from "./routes/music/lpRoutes.js";
 import admin_routes from "./routes/admin/adminRoutes.js";
 import user_routes from "./routes/user/userRoutes.js";
 
-dotenv.config({ path: "../.env"});
+/** Connect to the Database */
+connect();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -33,13 +34,7 @@ app.use('/swordfishtrombone/api/v1/user', user_routes);
 /* Routes for Administrator role functions */
 app.use('/swordfishtrombone/api/v1/admin', admin_routes);
 
-/* Connect to DB and start server */
-mongoose.connect(process.env.MONGO_URI)
-.then(() => {
-    app.listen(PORT, () => {
-        console.log(`Listening on ${PORT}..`)
-    });
-})
-.catch((err) => console.log({ message: err.message}))
-
+app.listen(PORT, () => {
+    console.info(`Listening @ ${PORT}`)
+});
 
