@@ -4,7 +4,12 @@ export const config = {
 
             "headers": { "apiKey": process.env.REACT_APP_API_KEY }
         },
-        "body": {},
+        "body": {
+            "data": {
+                "email": "keir11@hotmail.com",
+                "password": "testpass",
+            },
+        },
         "Authorization": {}
     }
 }
