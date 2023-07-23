@@ -1,21 +1,19 @@
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import generateApiKey from "generate-api-key";
+import { generateApiKey } from "generate-api-key";
 import User from "../../models/user/User.js";
 import { sendAPIKey } from "../../services/mail.js";
-import { isValidEmail } from "../user/authentication.js";
+import { isEmailValid } from "../../services/mail.js";
 
 /* CREATE User */
 export const createUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const {valid, reason, validators} = await isValidEmail(email);  // Validate email address
 
-        if (!valid) {
+        if (!isEmailValid(email)) {
             return res.status(400).json({
-                message: "Email address invalid.",
-                reason: validators[reason].reason
+                message: "Email address invalid."
             });
         }
         
@@ -27,7 +25,7 @@ export const createUser = async (req, res) => {
         const newuser = new User({
             email,
             password: hashedPass,
-            apikey: generateApiKey.generateApiKey({ length: 16 })
+            apikey: generateApiKey({ length: 16 })
         });
 
         await newuser.save();
