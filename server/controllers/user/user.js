@@ -1,34 +1,48 @@
 import User from "../../models/user/User.js";
 import { validatePasswordHash } from "./authentication.js";
 import { generateApiKey } from "generate-api-key";
-import { isValidEmail } from "./authentication.js";
+import { isEmailValid } from "../../services/mail.js";
+import { sendAPIKey } from "../../services/mail.js";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
-// import { Jwt } from "jsonwebtoken";
 
 /* USER LOGIN */
 export const Login = async (req, res) => {
     try {
+        // Get user input
         const { email, password } = req.body;
-        
-        const user = await User.findOne({ email: email });  // Find User by Email Address
-        if (!user) return res.status(404).json({ error: "Invalid login credentials." });
-
-        const authPassword = await bcrypt.compare(password, user.password); // Authorise password provided in payload
-        if (!authPassword) return res.status(404).json({ error: "Invalid credentials." });
-
-        return res.status(200).json({
-            token: 'testtoken1222212'
-        });
-    } catch (err) {
-        return res.status(400).json({
-            error: err.message,
-            message: 'Invalid request'
-        })
-    }
+    
+        // Validate user input
+        if (!(email && password)) {
+            res.status(400).send("All input is required");
+        }
+        // Validate if user exist in our database
+        const user = await User.findOne({ email });
+    
+        if (user && (await bcrypt.compare(password, user.password))) {
+            // Create token
+            const token = jwt.sign(
+            { user_id: user._id, email },
+            process.env.TOKEN_KEY,
+            { expiresIn: "2h", });
+    
+            // save user token
+            user.token = token;
+    
+            // user
+            return res.status(200).json({user: user, message: "Login successful."});
+        }
+        return res.status(400).send("Invalid Credentials");
+        } catch (err) {
+            return res.status(400).json({
+                message: "There was an issue logging in.",
+                error: err
+            });
+        }
 }
 
 /* USER LOGOUT */
+/* TODO: Implement this, not sure how yet */
 export const Logout = async (req, res) => {
     return res.status(200).json({
         message: "Not implemented. Mock success."
@@ -40,31 +54,52 @@ export const Register = async (req, res) => {
 
     try {
         const { email, password } = req.body;
-        const {valid, reason, validators} = await isValidEmail(email);  // Validate email address
 
-        if (!valid) {
-            return res.status(400).json({
-                message: "Email address invalid.",
-                reason: validators[reason].reason
+        console.log(email);
+        console.log(password);
+
+        if (!email || !password) {
+            return res.status(400).send({
+                message: "You must enter an email and password."
             });
         }
-        
-        if (User.findOne({ email: email})) return res.status(303).json({ error: "Email already registered in database." });
+
+        if (!isEmailValid(email)) {
+            return res.status(400).send({
+                message: "Invalid email address"
+            });
+        }
 
         const salt = await bcrypt.genSalt();
         const hashedPass = await bcrypt.hash(password, salt);
-
+      
         const newuser = new User({
             email,
             password: hashedPass,
-            apikey: generateApiKey.generateApiKey({ length: 16 })
+            apikey: generateApiKey({ length: 16 })
         });
 
-        await newuser.save();
+        const token = jwt.sign({ 
+            user_id: newuser._id, 
+            email },
+            process.env.TOKEN_KEY,
+            {
+              expiresIn: "2h",
+            }
+        );
+
+        newuser.token = token;
 
         /* Send user API key via email */
-        sendAPIKey(newuser.apikey, newuser.email);
-        res.status(201).json({ msg: "Your API Key is being sent to your email." });
+        if (sendAPIKey(newuser.apikey, newuser.email)) {
+            await newuser.save();
+            return res.status(200).json({
+                user: newuser,
+                message: "Sending API key to your email address."
+            });
+        }
+        return res.status(502).json({ error: "Could not contact your mailbox to send your API Key." });
+
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
