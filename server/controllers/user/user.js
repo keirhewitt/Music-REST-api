@@ -30,7 +30,7 @@ export const Login = async (req, res) => {
             user.token = token;
     
             // user
-            return res.status(200).json({user: user, message: "Login successful."});
+            return res.status(200).json(user);
         }
         return res.status(400).send("Invalid Credentials");
         } catch (err) {
@@ -55,10 +55,7 @@ export const Register = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        console.log(email);
-        console.log(password);
-
-        if (!email || !password) {
+        if (!(email && password)) {
             return res.status(400).send({
                 message: "You must enter an email and password."
             });
@@ -70,6 +67,13 @@ export const Register = async (req, res) => {
             });
         }
 
+        const existingUser = await User.findOne({ email: email });
+        if (existingUser) {
+            return res.status(400).json({
+                error: "Account with that email address already exists."
+            })
+        }
+            
         const salt = await bcrypt.genSalt();
         const hashedPass = await bcrypt.hash(password, salt);
       
@@ -79,6 +83,7 @@ export const Register = async (req, res) => {
             apikey: generateApiKey({ length: 16 })
         });
 
+        /** Use jsonwebtokens to create a token based on TOKEN_KEY in .env */
         const token = jwt.sign({ 
             user_id: newuser._id, 
             email },
@@ -91,12 +96,10 @@ export const Register = async (req, res) => {
         newuser.token = token;
 
         /* Send user API key via email */
+        /* If successful, save user and return User object as response */
         if (sendAPIKey(newuser.apikey, newuser.email)) {
             await newuser.save();
-            return res.status(200).json({
-                user: newuser,
-                message: "Sending API key to your email address."
-            });
+            return res.status(200).json(newuser);
         }
         return res.status(502).json({ error: "Could not contact your mailbox to send your API Key." });
 
