@@ -19,6 +19,11 @@ peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none
 dark:text-neutral-200 dark:peer-focus:text-primary`
 
 const Login = () => {
+
+  const handleSubmit = (e) => {
+
+  }
+
   return (
     <div className='w-5/6 flex m-auto h-screen'>
       <form className='w-[300px] h-[300px] m-auto flex flex-col justify-around p-3 bg-dark rounded-lg' action='' method='POST'>
