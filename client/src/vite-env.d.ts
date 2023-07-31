@@ -5,3 +5,6 @@ declare module "react-dom/client" {
     var createRoot: any;
     export {createRoot};
 }
+
+declare module '*.jpg';
+declare module '*.svg';
