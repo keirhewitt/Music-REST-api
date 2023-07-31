@@ -3,8 +3,6 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import swal from 'sweetalert'
 import axios from 'axios'
 
-type RegisterProps = { }
-
 type Credentials = {
   email: string,
   password: string
