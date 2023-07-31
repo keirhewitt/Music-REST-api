@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { config } from 'config/config.app';
+import { config } from '../config/config.app';
 
 /* Local base endpoint */
 const api = axios.create({

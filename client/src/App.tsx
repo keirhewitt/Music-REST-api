@@ -3,15 +3,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navbar } from './components';
 
 import AllLPs from './pages/LP/ListLP';
-import UpdatesLP from 'pages/LP/UpdatingLP';
-import CreatesLP from 'pages/LP/CreatingLP';
+import UpdatesLP from './pages/LP/UpdatingLP';
+import CreatesLP from './pages/LP/CreatingLP';
 
-import Login from 'pages/User/Login';
-import Register from 'pages/User/Register';
+import Login from './pages/User/Login';
+import Register from './pages/User/Register';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MainPage from 'pages/LP/MainPage';
-import RandomLP from 'pages/LP/RandomLP';
+import MainPage from './pages/LP/MainPage';
+import RandomLP from './pages/LP/RandomLP';
 
 function App() {
     return (
