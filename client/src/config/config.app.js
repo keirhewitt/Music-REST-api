@@ -2,7 +2,7 @@ export const config = {
     "test": {
         "header": {
 
-            "headers": { "apiKey": import.meta.env.REACT_APP_API_KEY }
+            "headers": { "apiKey": import.meta.env.VITE_API_KEY }
         },
         "body": {
             "data": {
