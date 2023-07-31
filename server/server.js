@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 
+/* Database connection function */
 import { connect } from "./config/database.js";
 
 /* Route imports */
