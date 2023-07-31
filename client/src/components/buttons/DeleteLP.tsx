@@ -1,13 +1,19 @@
 import React, { Component } from "react";
+
+// @ts-ignore
 import { LP__ROUTES } from "./urls";
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default class DeleteLP extends Component {
+interface DeleteLPProps {
+    id: number
+}
 
-    handleDelete = (id) => { LP__ROUTES.deleteLP(id); };
+export default class DeleteLP extends Component<DeleteLPProps> {
 
-    deleteLP = event => {
+    handleDelete = (id: number) => { LP__ROUTES.deleteLP(id); };
+
+    deleteLP = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
 
         if (window.confirm(`Delete LP ${this.props.id}?`)) {

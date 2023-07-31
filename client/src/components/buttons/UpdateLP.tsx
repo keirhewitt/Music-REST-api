@@ -1,9 +1,13 @@
 import { Component } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 
-export default class UpdateLP extends Component {
+interface UpdateLPProps {
+    id: number
+}
 
-    updateLP = event => {
+export default class UpdateLP extends Component<UpdateLPProps> {
+
+    updateLP = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         window.location.href = `/music/lp/update/${this.props.id}`;
     }
