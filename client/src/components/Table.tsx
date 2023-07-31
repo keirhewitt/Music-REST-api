@@ -8,10 +8,15 @@ import React from 'react';
 import UpdateLP from './buttons/UpdateLP';
 import DeleteLP from './buttons/DeleteLP';
 
+type TableProps = {
+	columns: {},
+	data: any
+};
+
 /* STYLES */
 const tdStyle = `p-3 border-t-[0.5px] overflow-hidden text-ellipsis`;
 
-function Table({ columns, data }) {
+function Table({ columns, data }: TableProps) {
   return (
   	<table className='overflow-hidden border-collapse table-fixed rounded-md whitespace-nowrap w-full overflow-x-auto'>
 		<thead className='bg-[#ccc] text-[#222]'>
@@ -43,7 +48,7 @@ function Table({ columns, data }) {
   )
 }
 
-export default function CreateTable({ data, columns }) {
+export default function CreateTable({ columns, data }: TableProps) {
     return (
 		<div className='flex justify-center p-4'>
 			<Table columns={columns} data={data}/>

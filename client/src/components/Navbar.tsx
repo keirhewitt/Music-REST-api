@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+/* Component imports */
 import Logo from './Logo';
 import Links from './Links';
 
