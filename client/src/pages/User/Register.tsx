@@ -3,6 +3,13 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import swal from 'sweetalert'
 import axios from 'axios'
 
+type RegisterProps = { }
+
+type Credentials = {
+  email: string,
+  password: string
+}
+
 /** Tailwind styles */
 const textBoxStyle = 
 `peer block min-h-[auto] w-full rounded border bg-transparent 
@@ -28,7 +35,7 @@ const Register = () => {
   const { register, handleSubmit, formState: {errors}, } = useForm()
 
   /* JSONify credentials, create POST request and send to url */
-  const registerUser = async (creds) => {
+  async function registerUser(creds: Credentials) {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
@@ -43,14 +50,13 @@ const Register = () => {
     return response.data;
   }
 
-  const onSubmit = async (data) => {
+  async function onSubmit(data: any) {
     const response = await registerUser({
       email: data.email,
       password: data.password
     });
     if ('token' in response) {
       swal("Success", "Account registered.", "success", {
-        buttons: false,
         timer: 2000,
       })
       .then((value) => {
@@ -75,7 +81,7 @@ const Register = () => {
             {...register("email", { required: true })}
             aria-invalid={errors.email ? "true" : "false"}/>
           <label 
-            for='emailInput' 
+            htmlFor='emailInput' 
             className={labelStyle}>Email</label>
         </div>
         <div className='relative mb-3' data-te-input-wrapper-init>
@@ -84,7 +90,7 @@ const Register = () => {
             className={textBoxStyle} 
             {...register("password", { required: true })} 
             id='password'/>
-          <label for='password' className={labelStyle}>Password</label>
+          <label htmlFor='password' className={labelStyle}>Password</label>
         </div>
         <div className='relative mb-3' data-te-input-wrapper-init>
           <input 
@@ -93,7 +99,7 @@ const Register = () => {
             {...register("confirmpassword", { required: true })}  
             id='confirm-password'/>
           <label 
-            for='confirm-password' 
+            htmlFor='confirm-password' 
             className={labelStyle}>Confirm Password</label>
         </div>
         <input className={submitButtonStyle} type='submit' value='Register' />
