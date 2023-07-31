@@ -3,7 +3,7 @@ import React, { Component, useState, useEffect } from 'react';
 /* LPTable Component */
 import LPTable from "../../components/Table";
 
-import { LP__ROUTES } from '../../api/api.js';
+import { LP__ROUTES } from '../../api/api.ts';
 
 import { TailSpin } from 'react-loading-icons';
 
