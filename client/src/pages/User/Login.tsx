@@ -20,7 +20,7 @@ dark:text-neutral-200 dark:peer-focus:text-primary`
 
 const Login = () => {
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: Event) => {
 
   }
 
@@ -29,11 +29,11 @@ const Login = () => {
       <form className='w-[300px] h-[300px] m-auto flex flex-col justify-around p-3 bg-dark rounded-lg' action='' method='POST'>
         <div className='relative mb-3' data-te-input-wrapper-init>
           <input className={textBoxStyle} type="text" id='emailInput' placeholder='Email'/>
-          <label for='emailInput' className={labelStyle}>Email</label>
+          <label htmlFor='emailInput' className={labelStyle}>Email</label>
         </div>
         <div className='relative mb-3' data-te-input-wrapper-init>
           <input className={textBoxStyle} type='password' id='password' placeholder='Password'/>
-          <label for='password' className={labelStyle}>Password</label>
+          <label htmlFor='password' className={labelStyle}>Password</label>
         </div>
         <input className={submitButtonStyle} type='submit' value='Login' />
       </form>
