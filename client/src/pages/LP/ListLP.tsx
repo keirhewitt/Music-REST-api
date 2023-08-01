@@ -3,21 +3,23 @@ import React, { Component, useState, useEffect } from 'react';
 /* LPTable Component */
 import LPTable from "../../components/Table";
 
-import { LP__ROUTES } from '../../api/api.ts';
+/* API Route imports */
+import { LP__ROUTES } from '../../api/api';
 
+/* Loading Icon */
 import { TailSpin } from 'react-loading-icons';
 
 const AllLPs = () => {
 
-    const [lpdata, setLPData] = useState()
-	const [payload, setPayload] = useState(null)
-	const [loading, setLoading] = useState(true)
+    const [lpdata, setLPData] = useState<Object>({})
+	const [payload, setPayload] = useState<Object>({})
+	const [loading, setLoading] = useState<boolean>(true)
 
 	useEffect(() => {
 		getLPData()
 	}, [])
 
-    const columns = 
+    const columns: Array<Object> = 
 	[{ Header: 'Artist' },
 	 { Header: 'Title' },
 	 { Header: 'Release Date' },
