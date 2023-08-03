@@ -1,8 +1,9 @@
 import { Component } from "react";
 import EditIcon from '@mui/icons-material/Edit';
+import { ObjectId } from "mongoose";
 
 interface UpdateLPProps {
-    id: number
+    id: number | ObjectId;
 }
 
 export default class UpdateLP extends Component<UpdateLPProps> {

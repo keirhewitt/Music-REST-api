@@ -5,13 +5,15 @@ import { LP__ROUTES } from "./urls";
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import { ObjectId } from "mongoose";
+
 interface DeleteLPProps {
-    id: number
+    id: number | ObjectId;
 }
 
 export default class DeleteLP extends Component<DeleteLPProps> {
 
-    handleDelete = (id: number) => { LP__ROUTES.deleteLP(id); };
+    handleDelete = (id: number | ObjectId) => { LP__ROUTES.deleteLP(id.toString()); };
 
     deleteLP = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
