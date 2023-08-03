@@ -15,12 +15,12 @@ const user_test_payload = config.test.body;
 /* LP */
 const createLP = (payload: {}) => api.post(`/music/lp/create`, test_payload);
 const getAllLPs = (payload: {}) => api.get(`/music/lp`, test_payload);
-const updateLP = (id: number, payload: {}) => api.patch(`/music/update/${id}`, test_payload);
-const deleteLP = (id: number) => api.delete(`/music/lp/delete/${id}`, test_payload);
+const updateLP = (id: number | string, payload: {}) => api.patch(`/music/update/${id}`, test_payload);
+const deleteLP = (id: number | string) => api.delete(`/music/lp/delete/${id}`, test_payload);
 
 /* User */
 const createUser = (payload: {}) => api.post(`/user/create`, test_payload);
-const loginUser = (id: number, payload: {}) => api.post(`/user/login/${id}`, test_payload);
+const loginUser = (id: number | string, payload: {}) => api.post(`/user/login/${id}`, test_payload);
 const logoutUser = (payload: {}) => api.post(`/user/logout`, test_payload);
 const registerUser = (email: string, password: string) => api.post(`/user/register`, {
     headers: { 
