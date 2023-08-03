@@ -8,8 +8,21 @@ import React from 'react';
 import UpdateLP from './buttons/UpdateLP';
 import DeleteLP from './buttons/DeleteLP';
 
+import { ObjectId } from 'mongoose';
+
+interface column {
+	Header: string;
+}
+
+interface row {
+	artist: string;
+	title: string;
+	releaseDate: string;
+	_id: ObjectId;
+}
+
 type TableProps = {
-	columns: {},
+	columns: Array<column>,
 	data: any
 };
 
@@ -28,7 +41,7 @@ function Table({ columns, data }: TableProps) {
 			</tr>
 		</thead>
 		<tbody>
-			{data.map((row) => (
+			{data.map((row: row) => (
 				<>
 					<tr className=' hover:bg-slate-200'>
 						<td className={`${tdStyle}`}>{row.artist}</td>
